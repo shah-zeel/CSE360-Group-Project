@@ -15,28 +15,25 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Scene scene = createLoginScene(primaryStage);
-        primaryStage.setTitle("Login Page");
-        primaryStage.setScene(scene);
+        primaryStage.setTitle("Login Page"); // Set initial title
+        primaryStage.setScene(createLoginScene(primaryStage));
         primaryStage.show();
     }
 
+    // Scene Creation Methods
     private Scene createLoginScene(Stage primaryStage) {
         VBox loginVBox = new VBox(10);
 
         // Check if any users exist
         if (userManager.getUsers().isEmpty()) {
-            // Create fields for creating admin account
-            createAdminFields(loginVBox, primaryStage);
+            return createAdminFields(primaryStage); // Create admin fields and set scene
         } else {
-            // Create fields for user login
-            createLoginFields(loginVBox, primaryStage);
+            return createLoginFields(primaryStage); // Create login fields and set scene
         }
-
-        return new Scene(loginVBox, 300, 200);
     }
 
-    private void createLoginFields(VBox loginVBox, Stage primaryStage) {
+    private Scene createLoginFields(Stage primaryStage) {
+        VBox loginVBox = new VBox(10);
         Label usernameLabel = new Label("Username:");
         TextField usernameField = new TextField();
         Label passwordLabel = new Label("Password:");
@@ -47,77 +44,184 @@ public class Main extends Application {
 
         // Set action for the login button
         loginButton.setOnAction(e -> handleLogin(usernameField.getText(), passwordField.getText(), primaryStage));
+
+        return new Scene(loginVBox, 300, 200); // Return the login scene
     }
 
-    private void createAdminFields(VBox loginVBox, Stage primaryStage) {
+    private Scene createAdminFields(Stage primaryStage) {
+        VBox adminVBox = new VBox(10);
         Label usernameLabel = new Label("Username:");
         TextField usernameField = new TextField();
         Label passwordLabel = new Label("Password:");
         PasswordField passwordField = new PasswordField();
+        Label confirmPasswordLabel = new Label("Confirm Password:");
+        PasswordField confirmPasswordField = new PasswordField();
         Button createAdminButton = new Button("Create Admin Account");
 
-        loginVBox.getChildren().addAll(usernameLabel, usernameField, passwordLabel, passwordField, createAdminButton);
+        adminVBox.getChildren().addAll(usernameLabel, usernameField, passwordLabel, passwordField, confirmPasswordLabel,
+                confirmPasswordField, createAdminButton);
 
         // Set action for creating the first user as admin
-        createAdminButton.setOnAction(e -> handleCreateAdmin(usernameField.getText(), passwordField.getText(), loginVBox));
+        createAdminButton.setOnAction(e -> handleCreateAdmin(usernameField.getText(), passwordField.getText(),
+                confirmPasswordField.getText(), adminVBox, primaryStage));
+
+        primaryStage.setTitle("Create Admin Account"); // Set title for admin creation
+        return new Scene(adminVBox, 300, 300); // Return the admin scene
     }
 
+    private Scene createSetupAccountScene(User user, Stage primaryStage) {
+        VBox setupVBox = new VBox(10);
+        setupVBox.setStyle("-fx-padding: 20;");
+
+        // Create fields for user details
+        Label emailLabel = new Label("Email:");
+        TextField emailField = new TextField();
+        Label firstNameLabel = new Label("First Name:");
+        TextField firstNameField = new TextField();
+        Label middleNameLabel = new Label("Middle Name (optional):");
+        TextField middleNameField = new TextField();
+        Label lastNameLabel = new Label("Last Name:");
+        TextField lastNameField = new TextField();
+        Label preferredNameLabel = new Label("Preferred First Name (optional):");
+        TextField preferredNameField = new TextField();
+        Button finishSetupButton = new Button("Finish Setup");
+
+        setupVBox.getChildren().addAll(emailLabel, emailField, firstNameLabel, firstNameField, 
+                                         middleNameLabel, middleNameField, lastNameLabel, lastNameField, 
+                                         preferredNameLabel, preferredNameField, finishSetupButton);
+
+        // Set action for the finish setup button
+        finishSetupButton.setOnAction(e -> {
+            String email = emailField.getText();
+            String firstName = firstNameField.getText();
+            String middleName = middleNameField.getText();
+            String lastName = lastNameField.getText();
+            String preferredName = preferredNameField.getText();
+
+            // Call the handleFinishSetup method with the currently logged-in user
+            handleFinishSetup(email, firstName, middleName, lastName, preferredName, user, primaryStage);
+        });
+
+        return new Scene(setupVBox, 400, 500);
+    }
+
+    private Scene createHomeScene(Stage primaryStage) {
+        VBox homeVBox = new VBox(10);
+        Label welcomeLabel = new Label("Welcome to the Home Page!");
+        Button logoutButton = new Button("Logout");
+
+        // Set action for the logout button (return to login page)
+        logoutButton.setOnAction(e -> {
+            primaryStage.setScene(createLoginScene(primaryStage));
+            primaryStage.setTitle("Login Page"); // Set title for login page
+        });
+
+        homeVBox.getChildren().addAll(welcomeLabel, logoutButton);
+        return new Scene(homeVBox, 300, 200); // Return the home scene
+    }
+
+    // Event Handling Methods
     private void handleLogin(String username, String password, Stage primaryStage) {
         // Attempt to log in
         User loggedInUser = userManager.login(username, password);
 
         if (loggedInUser != null) {
-            // If login is successful, change the scene to the home page
+            if (!loggedInUser.isSetupComplete()) {
+                primaryStage.setScene(createSetupAccountScene(loggedInUser, primaryStage)); // Pass the logged-in user
+            } else {
+                primaryStage.setScene(createHomeScene(primaryStage)); // Proceed to home page
+            }
+        } else {
+            showError("Invalid username or password");
+        }
+    }
+
+    private void handleFinishSetup(String email, String firstName, String middleName, String lastName,
+                                    String preferredName, User user, Stage primaryStage) {
+        // Validate user input
+        if (email.isEmpty() || firstName.isEmpty() || lastName.isEmpty()) {
+            showError("Email, First Name, and Last Name are required.");
+            return;
+        }
+
+        // Call the completeAccountSetup method
+        boolean isCompleted = userManager.completeAccountSetup(user, firstName, middleName, lastName, preferredName, email);
+
+        if (isCompleted) {
+            // Redirect to home page after setup is complete
             primaryStage.setScene(createHomeScene(primaryStage));
         } else {
-            // Show an alert if login fails
-            showAlert("Invalid username or password", Alert.AlertType.ERROR);
+            showError("Failed to complete account setup. Please try again.");
         }
     }
 
-    private Scene createHomeScene(Stage primaryStage) {
-        Label welcomeLabel = new Label("Welcome to the Home Page!");
-        Button logoutButton = new Button("Logout");
+    private void handleCreateAdmin(String username, String password, String confirmPassword, VBox adminVBox,
+                                    Stage primaryStage) {
+        // Clear previous error messages
+        adminVBox.getChildren().removeIf(node -> node instanceof Label && ((Label) node).getText().startsWith("Error:"));
 
-        // Set action for the logout button (return to login page)
-        logoutButton.setOnAction(e -> primaryStage.setScene(createLoginScene(primaryStage)));
+        // Check for null or empty username and passwords
+        if (username == null || username.isEmpty()) {
+            Label errorLabel = new Label("Error: Username cannot be empty.");
+            adminVBox.getChildren().add(errorLabel);
+            return; // Exit the method if username is invalid
+        }
 
-        VBox homeVBox = new VBox(10, welcomeLabel, logoutButton);
-        return new Scene(homeVBox, 300, 200);
-    }
+        if (password == null || password.isEmpty()) {
+            Label errorLabel = new Label("Error: Password cannot be empty.");
+            adminVBox.getChildren().add(errorLabel);
+            return; // Exit the method if password is invalid
+        }
 
-    private void handleCreateAdmin(String username, String password, VBox loginVBox) {
-        if (userManager.getUsers().isEmpty()) {
-            // Create the first user as an admin
-            User admin = userManager.createFirstUser(username, password);
+        if (confirmPassword == null || confirmPassword.isEmpty()) {
+            Label errorLabel = new Label("Error: Confirm Password cannot be empty.");
+            adminVBox.getChildren().add(errorLabel);
+            return; // Exit the method if confirm password is invalid
+        }
 
-            if (admin != null) {
-                // Display confirmation message on the screen
-                Label confirmationLabel = new Label("Admin account created successfully. Please log in.");
-                loginVBox.getChildren().add(confirmationLabel);
+        if (!password.equals(confirmPassword)) {
+            Label errorLabel = new Label("Error: Passwords do not match. Please try again.");
+            adminVBox.getChildren().add(errorLabel);
+            return; // Exit the method if passwords do not match
+        }
 
-                // Pause for a few seconds before redirecting
-                PauseTransition pause = new PauseTransition(Duration.seconds(3));
-                pause.setOnFinished(event -> redirectToLogin(loginVBox));
-                pause.play();
-            }
+        // Proceed to create the first user as an admin
+        User admin = userManager.createFirstUser(username, password);
+
+        if (admin != null) {
+            // Display confirmation message on the screen
+            Label confirmationLabel = new Label("Admin account created successfully. Please log in.");
+            adminVBox.getChildren().add(confirmationLabel);
+
+            // Pause for a few seconds before redirecting
+            PauseTransition pause = new PauseTransition(Duration.seconds(1.5));
+            pause.setOnFinished(event -> redirectToLogin(adminVBox, primaryStage));
+            pause.play();
         }
     }
 
-    private void redirectToLogin(VBox loginVBox) {
+    private void redirectToLogin(VBox adminVBox, Stage primaryStage) {
         // Clear previous confirmation messages
-        loginVBox.getChildren().removeIf(node -> node instanceof Label && ((Label) node).getText().contains("Admin account created successfully"));
+        adminVBox.getChildren().removeIf(node -> node instanceof Label
+                && ((Label) node).getText().contains("Admin account created successfully"));
 
         // Reset the input fields for a new login attempt
-        for (Node node : loginVBox.getChildren()) {
+        for (Node node : adminVBox.getChildren()) {
             if (node instanceof TextField) {
                 ((TextField) node).clear();
             }
         }
 
-        // Recreate the login scene
-        loginVBox.getChildren().clear();
-        createLoginFields(loginVBox, (Stage) loginVBox.getScene().getWindow());
+        // Switch back to the login scene
+        primaryStage.setScene(createLoginScene(primaryStage));
+        primaryStage.setTitle("Login Page"); // Set title for login page
+    }
+
+    // Utility Methods
+    private void showError(String message) {
+        Label errorLabel = new Label("Error: " + message);
+        errorLabel.setStyle("-fx-text-fill: red;");
+        // You can show this error label in the setup scene as needed
     }
 
     private void showAlert(String message, Alert.AlertType alertType) {
