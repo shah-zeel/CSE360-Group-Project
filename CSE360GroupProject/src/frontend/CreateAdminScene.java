@@ -73,7 +73,7 @@ public class CreateAdminScene {
             adminVBox.getChildren().add(confirmationLabel);
 
             // Pause for a few seconds before redirecting
-            PauseTransition pause = new PauseTransition(Duration.seconds(3));
+            PauseTransition pause = new PauseTransition(Duration.seconds(1));
             pause.setOnFinished(event -> redirectToLogin(adminVBox));
             pause.play();
         }

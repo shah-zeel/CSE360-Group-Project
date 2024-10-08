@@ -1,26 +1,27 @@
-package frontend;
+package frontend.HomeScene;
 
 import backend.UserManager;
+import frontend.LoginScene;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class StudentHomeScene {
+public class InstructorHomeScene {
     private Stage primaryStage;
     private UserManager userManager;
 
-    public StudentHomeScene(Stage primaryStage, UserManager userManager) {
+    public InstructorHomeScene(Stage primaryStage, UserManager userManager) {
         this.primaryStage = primaryStage;
         this.userManager = userManager; // Store the userManager
     }
 
-    public Scene createStudentHomeScene() {
+    public Scene createInstructorHomeScene() {
         VBox homeVBox = new VBox(10);
         homeVBox.setPrefSize(300, 200);
         
-        Label welcomeLabel = new Label("Welcome to the Student Home Page!");
+        Label welcomeLabel = new Label("Welcome to the Instructor Home Page!");
         Button logoutButton = new Button("Logout");
 
         // Adding action for the logout button

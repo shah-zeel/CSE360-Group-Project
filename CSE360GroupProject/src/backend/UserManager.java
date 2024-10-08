@@ -3,8 +3,14 @@ package backend;
 import java.util.*;
 
 public class UserManager {
-	private List<User> users = new ArrayList<>();
+	private List<User> users;
+    private Invitations invitations;
 
+    public UserManager() {
+    	this.users = new ArrayList<>();
+        this.invitations = new Invitations();
+    }
+    
 	// Check if any user exists (if not, create an Admin)
 	public User createFirstUser(String username, String password) {
 		if (users.isEmpty()) {
@@ -41,6 +47,8 @@ public class UserManager {
 		user.setPreferredName(preferredName);
 		user.setEmail(email);
 		user.setSetupComplete(true);
+		System.out.println(user);
+		System.out.println(user.isSetupComplete());
 		return true;
 	}
 
@@ -92,8 +100,11 @@ public class UserManager {
 	}
 
 	// Invite a new user (this is simplified, in real cases you'd generate a
-	// one-time code)
-	public User inviteUser(String username, String password, Set<Role> roles) {
-		return createUser(username, password, roles);
-	}
+    public String inviteUser(String username, String email, Set<Role> roles) {
+        return invitations.inviteUser(username, email, roles);
+    }
+
+    public User getUserFromInvitationCode(String invitationCode) {
+        return invitations.getUserFromInvitationCode(invitationCode);
+    }
 }
