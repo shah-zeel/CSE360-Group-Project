@@ -2,6 +2,7 @@ package frontend;
 
 import backend.User;
 import backend.UserManager;
+import frontend.LoginScene.LoginScene;
 import javafx.animation.PauseTransition;
 import javafx.scene.Node;
 import javafx.scene.Scene;

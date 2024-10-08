@@ -1,7 +1,7 @@
 package frontend.HomeScene;
 
 import backend.UserManager;
-import frontend.LoginScene;
+import frontend.LoginScene.LoginScene;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

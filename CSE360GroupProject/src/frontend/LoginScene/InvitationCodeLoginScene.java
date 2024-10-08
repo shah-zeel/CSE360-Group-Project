@@ -1,7 +1,9 @@
-package frontend;
+package frontend.LoginScene;
 
 import backend.User;
 import backend.UserManager;
+import frontend.ErrorScene;
+import frontend.SetupScene;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;

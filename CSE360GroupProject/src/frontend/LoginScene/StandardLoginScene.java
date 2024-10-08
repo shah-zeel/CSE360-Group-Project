@@ -1,6 +1,10 @@
-package frontend;
+package frontend.LoginScene;
 
 import backend.UserManager;
+import frontend.ErrorScene;
+import frontend.RoleSelectionScene;
+import frontend.SetupScene;
+import frontend.LoginScene.InvitationCodeLoginScene;
 import backend.User;
 import javafx.scene.Scene;
 import javafx.scene.control.*;

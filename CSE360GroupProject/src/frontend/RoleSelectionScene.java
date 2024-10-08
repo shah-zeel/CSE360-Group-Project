@@ -23,7 +23,7 @@ public class RoleSelectionScene {
         this.userManager = userManager;
     }
 
-	protected void handleRoleSelection(User user) {
+	public void handleRoleSelection(User user) {
 		Set<Role> roles = user.getRoles();
 
 		if (roles.size() > 1) {

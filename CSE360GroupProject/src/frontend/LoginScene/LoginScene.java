@@ -1,6 +1,7 @@
-package frontend;
+package frontend.LoginScene;
 
 import backend.UserManager;
+import frontend.CreateAdminScene;
 import frontend.HomeScene.AdminHomeScene;
 import frontend.HomeScene.InstructorHomeScene;
 import frontend.HomeScene.StudentHomeScene;
