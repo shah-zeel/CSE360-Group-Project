@@ -56,7 +56,7 @@ public class SetupScene {
         if (success) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Setup completed successfully!");
             alert.showAndWait();
-            primaryStage.setScene(new HomeScene(primaryStage, userManager).createHomeScene()); // Go to home scene after setup
+            new LoginScene(primaryStage, userManager).handleRoleSelection(user); // Go to home scene after setup
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Setup failed. Please try again.");
             alert.showAndWait();

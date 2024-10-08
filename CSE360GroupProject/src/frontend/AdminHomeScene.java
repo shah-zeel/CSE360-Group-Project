@@ -7,20 +7,20 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class HomeScene {
+public class AdminHomeScene {
     private Stage primaryStage;
     private UserManager userManager;
 
-    public HomeScene(Stage primaryStage, UserManager userManager) {
+    public AdminHomeScene(Stage primaryStage, UserManager userManager) {
         this.primaryStage = primaryStage;
         this.userManager = userManager; // Store the userManager
     }
 
-    public Scene createHomeScene() {
+    public Scene createAdminHomeScene() {
         VBox homeVBox = new VBox(10);
         homeVBox.setPrefSize(300, 200);
         
-        Label welcomeLabel = new Label("Welcome to the Home Page!");
+        Label welcomeLabel = new Label("Welcome to the Admin Home Page!");
         Button logoutButton = new Button("Logout");
 
         // Adding action for the logout button
@@ -33,7 +33,7 @@ public class HomeScene {
 
     private void handleLogout() {
         // Navigate back to the login scene
-        LoginScene loginScene = new LoginScene(userManager); // You may need to pass the userManager
-        primaryStage.setScene(loginScene.createLoginScene(primaryStage)); // Switch back to the login scene
+        LoginScene loginScene = new LoginScene(primaryStage, userManager); // You may need to pass the userManager
+        primaryStage.setScene(loginScene.createLoginScene()); // Switch back to the login scene
     }
 }

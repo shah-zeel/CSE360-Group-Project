@@ -10,11 +10,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class AdminScene {
+public class CreateAdminScene {
     private UserManager userManager;
     private Stage primaryStage;
 
-    public AdminScene(UserManager userManager, Stage primaryStage) {
+    public CreateAdminScene(UserManager userManager, Stage primaryStage) {
         this.userManager = userManager;
         this.primaryStage = primaryStage;
     }
@@ -92,7 +92,7 @@ public class AdminScene {
         }
 
         // Switch back to the login scene
-        primaryStage.setScene(new LoginScene(userManager).createLoginScene(primaryStage));
+        primaryStage.setScene(new LoginScene(primaryStage, userManager).createLoginScene());
     }
 
     private void showError(String message, VBox adminVBox) {
