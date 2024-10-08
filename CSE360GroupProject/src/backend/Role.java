@@ -1,4 +1,4 @@
-package application;
+package backend;
 
 public enum Role {
     ADMIN,
