@@ -1,6 +1,6 @@
 package frontend.LoginScene;
 
-import backend.UserManager;
+import backend.AuthManager;
 import frontend.ErrorScene;
 import frontend.RoleSelectionScene;
 import frontend.SetupScene;
@@ -13,9 +13,9 @@ import javafx.stage.Stage;
 
 public class StandardLoginScene {
     private Stage primaryStage;
-    private UserManager userManager;
+    private AuthManager userManager;
 
-    public StandardLoginScene(Stage primaryStage, UserManager userManager) {
+    public StandardLoginScene(Stage primaryStage, AuthManager userManager) {
         this.primaryStage = primaryStage;
         this.userManager = userManager;
     }

@@ -1,9 +1,7 @@
 package frontend.LoginScene;
 
-import backend.User;
-import backend.UserManager;
+import backend.AuthManager;
 import frontend.ErrorScene;
-import frontend.SetupScene;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -11,9 +9,9 @@ import javafx.stage.Stage;
 
 public class InvitationCodeLoginScene {
     private Stage primaryStage;
-    private UserManager userManager;
+    private AuthManager userManager;
 
-    public InvitationCodeLoginScene(Stage primaryStage, UserManager userManager) {
+    public InvitationCodeLoginScene(Stage primaryStage, AuthManager userManager) {
         this.primaryStage = primaryStage;
         this.userManager = userManager;
     }
@@ -35,13 +33,8 @@ public class InvitationCodeLoginScene {
     }
 
     private void handleInvitationCodeLogin(String invitationCode) {
-        User user = userManager.getUserFromInvitationCode(invitationCode);
-        if (user != null) {
-            if (!user.isSetupComplete()) {
-                primaryStage.setScene(new SetupScene(user, userManager, primaryStage).createSetupScene());
-            } else {
-                new ErrorScene(primaryStage).showError("Account setup has already been completed.");
-            }
+        if (userManager.isUserInvited(invitationCode)) {
+                primaryStage.setScene(new PasswordSetupScene(invitationCode, userManager, primaryStage).createPasswordSetupScene());
         } else {
             new ErrorScene(primaryStage).showError("Invalid invitation code.");
         }

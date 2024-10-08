@@ -1,8 +1,8 @@
 package frontend;
 
 import backend.User;
-import backend.UserManager;
 import frontend.LoginScene.LoginScene;
+import backend.AuthManager;
 import javafx.animation.PauseTransition;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -12,11 +12,11 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class CreateAdminScene {
-    private UserManager userManager;
+    private AuthManager authManager;
     private Stage primaryStage;
 
-    public CreateAdminScene(UserManager userManager, Stage primaryStage) {
-        this.userManager = userManager;
+    public CreateAdminScene(Stage primaryStage, AuthManager authManager) {
+        this.authManager = authManager;
         this.primaryStage = primaryStage;
     }
 
@@ -66,7 +66,7 @@ public class CreateAdminScene {
         }
 
         // Proceed to create the first user as an admin
-        User admin = userManager.createFirstUser(username, password);
+        User admin = authManager.createFirstUser(username, password);
 
         if (admin != null) {
             // Display confirmation message on the screen
@@ -93,7 +93,7 @@ public class CreateAdminScene {
         }
 
         // Switch back to the login scene
-        primaryStage.setScene(new LoginScene(primaryStage, userManager).createLoginScene());
+        primaryStage.setScene(new LoginScene(primaryStage, authManager).createLoginScene());
     }
 
     private void showError(String message, VBox adminVBox) {

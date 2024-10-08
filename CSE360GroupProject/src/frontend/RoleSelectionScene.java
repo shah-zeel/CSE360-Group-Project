@@ -2,7 +2,7 @@ package frontend;
 
 import backend.Role;
 import backend.User;
-import backend.UserManager;
+import backend.AuthManager;
 import frontend.HomeScene.AdminHomeScene;
 import frontend.HomeScene.InstructorHomeScene;
 import frontend.HomeScene.StudentHomeScene;
@@ -16,9 +16,9 @@ import java.util.Set;
 
 public class RoleSelectionScene {
     private Stage primaryStage;
-    private UserManager userManager;
+    private AuthManager userManager;
 
-    public RoleSelectionScene(Stage primaryStage, UserManager userManager) {
+    public RoleSelectionScene(Stage primaryStage, AuthManager userManager) {
         this.primaryStage = primaryStage;
         this.userManager = userManager;
     }

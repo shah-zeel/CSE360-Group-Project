@@ -1,6 +1,6 @@
 package frontend.HomeScene;
 
-import backend.UserManager;
+import backend.AuthManager;
 import frontend.CreateInviteScene; // Import the AdminScene class
 import frontend.LoginScene.LoginScene;
 import javafx.scene.Scene;
@@ -11,9 +11,9 @@ import javafx.stage.Stage;
 
 public class AdminHomeScene {
     private Stage primaryStage;
-    private UserManager userManager;
+    private AuthManager userManager;
 
-    public AdminHomeScene(Stage primaryStage, UserManager userManager) {
+    public AdminHomeScene(Stage primaryStage, AuthManager userManager) {
         this.primaryStage = primaryStage;
         this.userManager = userManager; // Store the userManager
     }

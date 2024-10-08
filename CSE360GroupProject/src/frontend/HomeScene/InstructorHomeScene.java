@@ -1,6 +1,6 @@
 package frontend.HomeScene;
 
-import backend.UserManager;
+import backend.AuthManager;
 import frontend.LoginScene.LoginScene;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -10,9 +10,9 @@ import javafx.stage.Stage;
 
 public class InstructorHomeScene {
     private Stage primaryStage;
-    private UserManager userManager;
+    private AuthManager userManager;
 
-    public InstructorHomeScene(Stage primaryStage, UserManager userManager) {
+    public InstructorHomeScene(Stage primaryStage, AuthManager userManager) {
         this.primaryStage = primaryStage;
         this.userManager = userManager; // Store the userManager
     }

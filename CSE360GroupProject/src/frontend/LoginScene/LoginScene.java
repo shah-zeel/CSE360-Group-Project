@@ -1,30 +1,24 @@
 package frontend.LoginScene;
 
-import backend.UserManager;
+import backend.AuthManager;
 import frontend.CreateAdminScene;
-import frontend.HomeScene.AdminHomeScene;
-import frontend.HomeScene.InstructorHomeScene;
-import frontend.HomeScene.StudentHomeScene;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import java.util.Set;
-import backend.Role;
-import backend.User;
 
 public class LoginScene {
     private Stage primaryStage;
-    private UserManager userManager;
+    private AuthManager authManager;
 
-    public LoginScene(Stage primaryStage, UserManager userManager) {
+    public LoginScene(Stage primaryStage, AuthManager authManager) {
         this.primaryStage = primaryStage;
-        this.userManager = userManager;
+        this.authManager = authManager;
     }
 
     public Scene createLoginScene() {
-        if (userManager.getUsers().isEmpty()) {
-            return new CreateAdminScene(userManager, primaryStage).createAdminScene();
+        if (authManager.getUsers().isEmpty()) {
+            return new CreateAdminScene(primaryStage, authManager).createAdminScene();
         } else {
-            return new StandardLoginScene(primaryStage, userManager).createLoginFields();
+            return new StandardLoginScene(primaryStage, authManager).createLoginFields();
         }
     }
 }

@@ -1,7 +1,7 @@
 package frontend;
 
 import backend.User;
-import backend.UserManager;
+import backend.AuthManager;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -12,10 +12,10 @@ import java.util.regex.Pattern;
 
 public class SetupScene {
     private User user;
-    private UserManager userManager;
+    private AuthManager userManager;
     private Stage primaryStage;
 
-    public SetupScene(User user, UserManager userManager, Stage primaryStage) {
+    public SetupScene(User user, AuthManager userManager, Stage primaryStage) {
         this.user = user;
         this.userManager = userManager;
         this.primaryStage = primaryStage;

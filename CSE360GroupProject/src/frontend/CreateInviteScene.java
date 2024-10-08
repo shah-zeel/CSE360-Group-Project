@@ -1,8 +1,8 @@
 package frontend;
 
-import backend.UserManager;
-import frontend.HomeScene.AdminHomeScene;
 import backend.Role;
+import backend.AuthManager;
+import frontend.HomeScene.AdminHomeScene;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -12,10 +12,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class CreateInviteScene {
-    private UserManager userManager;
+    private AuthManager userManager;
     private Stage primaryStage;
 
-    public CreateInviteScene(UserManager userManager, Stage primaryStage) {
+    // Constructor to accept Invitations and UserManager
+    public CreateInviteScene(AuthManager userManager, Stage primaryStage) {
         this.userManager = userManager;
         this.primaryStage = primaryStage;
     }
@@ -24,6 +25,7 @@ public class CreateInviteScene {
         VBox adminVBox = new VBox(10);
         adminVBox.setPrefSize(300, 300);
 
+        // UI Components
         Label usernameLabel = new Label("Username:");
         TextField usernameField = new TextField();
         Label emailLabel = new Label("Email:");
@@ -41,6 +43,7 @@ public class CreateInviteScene {
         adminVBox.getChildren().addAll(usernameLabel, usernameField, emailLabel, emailField, rolesLabel,
                 adminRoleCheckBox, studentRoleCheckBox, instructorRoleCheckBox, inviteButton);
 
+        // Handle invite button click
         inviteButton.setOnAction(e -> handleInviteUser(usernameField.getText(), emailField.getText(),
                 adminRoleCheckBox.isSelected(), studentRoleCheckBox.isSelected(), instructorRoleCheckBox.isSelected()));
 
@@ -75,19 +78,20 @@ public class CreateInviteScene {
             return;
         }
 
-        // Call UserManager to invite the user
+        // Call Invitations to invite the user
         String invitationCode = userManager.inviteUser(username, email, roles);
 
         // Show invitation code to the admin
         if (invitationCode != null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Invitation sent! Invitation code: " + invitationCode);
-            System.out.println(invitationCode);
+            System.out.println(invitationCode); // Optional: for logging purposes
             alert.showAndWait();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Failed to send invitation. Please try again.");
             alert.showAndWait();
         }
-        
+
+        // Navigate back to Admin Home Scene
         primaryStage.setScene(new AdminHomeScene(primaryStage, userManager).createAdminHomeScene());
     }
 }
