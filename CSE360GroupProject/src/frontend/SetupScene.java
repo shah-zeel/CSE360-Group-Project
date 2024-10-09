@@ -12,12 +12,12 @@ import java.util.regex.Pattern;
 
 public class SetupScene {
     private User user;
-    private AuthManager userManager;
+    private AuthManager authManager;
     private Stage primaryStage;
 
-    public SetupScene(User user, AuthManager userManager, Stage primaryStage) {
+    public SetupScene(User user, AuthManager authManager, Stage primaryStage) {
         this.user = user;
-        this.userManager = userManager;
+        this.authManager = authManager;
         this.primaryStage = primaryStage;
     }
 
@@ -62,12 +62,12 @@ public class SetupScene {
         }
 
         // Call the user manager to complete account setup
-        boolean success = userManager.completeAccountSetup(user, firstName, middleName, lastName, preferredName, email);
+        boolean success = authManager.completeAccountSetup(user, firstName, middleName, lastName, preferredName, email);
 
         if (success) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Setup completed successfully!");
             alert.showAndWait();
-            new RoleSelectionScene(primaryStage, userManager).handleRoleSelection(user); // Go to home scene after setup
+            new RoleSelectionScene(primaryStage, authManager).handleRoleSelection(user); // Go to home scene after setup
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Setup failed. Please try again.");
             alert.showAndWait();

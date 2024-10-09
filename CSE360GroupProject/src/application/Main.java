@@ -1,19 +1,20 @@
 package application;
 
-import java.util.Set;
-import java.util.HashSet;
-import backend.Role;
-import backend.User;
 import backend.AuthManager;
 import frontend.LoginScene.LoginScene;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import java.util.Set;
+import java.util.HashSet;
+import backend.Role;
+import backend.User;
 
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         AuthManager authManager = new AuthManager(); // Create a user manager
+        
         /*
         // Create an admin user for testing purposes
         Set<Role> adminRoles = new HashSet<>();
@@ -27,7 +28,7 @@ public class Main extends Application {
         studentRoles.add(Role.STUDENT);
         String invitationCode = authManager.inviteUser("z", "z@example.com", studentRoles);
         System.out.println("Invitation Code for studentRoles: " + invitationCode); // Print the invitation code for reference
-         */
+        */
         
         // Create the login scene
         LoginScene loginScene = new LoginScene(primaryStage, authManager);

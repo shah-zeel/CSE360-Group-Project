@@ -9,11 +9,11 @@ import javafx.stage.Stage;
 
 public class InvitationCodeLoginScene {
     private Stage primaryStage;
-    private AuthManager userManager;
+    private AuthManager authManager;
 
-    public InvitationCodeLoginScene(Stage primaryStage, AuthManager userManager) {
+    public InvitationCodeLoginScene(Stage primaryStage, AuthManager authManager) {
         this.primaryStage = primaryStage;
-        this.userManager = userManager;
+        this.authManager = authManager;
     }
 
     public Scene createInvitationCodeLoginScene() {
@@ -21,10 +21,10 @@ public class InvitationCodeLoginScene {
         Label invitationCodeLabel = new Label("Invitation Code:");
         TextField invitationCodeField = new TextField();
         Button invitationCodeLoginButton = new Button("Login");
-        Button backToLoginButton = new Button("Login with Password");
+        Button backToLoginButton = new Button("Back to Login");
 
         invitationCodeLoginButton.setOnAction(e -> handleInvitationCodeLogin(invitationCodeField.getText()));
-        backToLoginButton.setOnAction(e -> primaryStage.setScene(new StandardLoginScene(primaryStage, userManager).createLoginFields()));
+        backToLoginButton.setOnAction(e -> primaryStage.setScene(new StandardLoginScene(primaryStage, authManager).createLoginFields()));
 
         invitationVBox.getChildren().addAll(invitationCodeLabel, invitationCodeField, invitationCodeLoginButton, backToLoginButton);
         primaryStage.setTitle("Login with Invitation Code");
@@ -33,10 +33,10 @@ public class InvitationCodeLoginScene {
     }
 
     private void handleInvitationCodeLogin(String invitationCode) {
-        if (userManager.isUserInvited(invitationCode)) {
-                primaryStage.setScene(new PasswordSetupScene(invitationCode, userManager, primaryStage).createPasswordSetupScene());
+        if (authManager.isUserInvited(invitationCode)) {
+                primaryStage.setScene(new InvitationCodePasswordSetupScene(invitationCode, authManager, primaryStage).createPasswordSetupScene());
         } else {
-            new ErrorScene(primaryStage).showError("Invalid invitation code.");
+            new ErrorScene().showError("Invalid invitation code.");
         }
     }
 }

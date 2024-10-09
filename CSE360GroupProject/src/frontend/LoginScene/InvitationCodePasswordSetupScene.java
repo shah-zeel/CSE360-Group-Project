@@ -1,7 +1,6 @@
 package frontend.LoginScene;
 
 import backend.Invitation;
-import backend.User;
 import backend.AuthManager;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -10,12 +9,12 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class PasswordSetupScene {
+public class InvitationCodePasswordSetupScene {
     private String invitationCode;
     private AuthManager userManager;
     private Stage primaryStage;
 
-    public PasswordSetupScene(String invitationCode, AuthManager userManager, Stage primaryStage) {
+    public InvitationCodePasswordSetupScene(String invitationCode, AuthManager userManager, Stage primaryStage) {
         this.invitationCode = invitationCode;
         this.userManager = userManager;
         this.primaryStage = primaryStage;
@@ -36,12 +35,9 @@ public class PasswordSetupScene {
             if (password.equals(confirmPassword)) {
             	Invitation invitation = userManager.getInvitationFromInvitationCode(invitationCode);
                 // Save the user to the UserManager
-                userManager.listUsers();
-                
                 userManager.createUser(invitation.getUsername(), password, invitation.getRoles());
                 userManager.deleteInvitation(invitationCode);
                 
-                userManager.listUsers();
                 // Redirect to the login page
                 primaryStage.setScene(new LoginScene(primaryStage, userManager).createLoginScene());
             } else {

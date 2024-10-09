@@ -16,11 +16,11 @@ import java.util.Set;
 
 public class RoleSelectionScene {
     private Stage primaryStage;
-    private AuthManager userManager;
+    private AuthManager authManager;
 
-    public RoleSelectionScene(Stage primaryStage, AuthManager userManager) {
+    public RoleSelectionScene(Stage primaryStage, AuthManager authManager) {
         this.primaryStage = primaryStage;
-        this.userManager = userManager;
+        this.authManager = authManager;
     }
 
 	public void handleRoleSelection(User user) {
@@ -63,19 +63,19 @@ public class RoleSelectionScene {
 		switch (role) {
 		case ADMIN:
 			// Navigate to Admin Home
-			primaryStage.setScene(new AdminHomeScene(primaryStage, userManager).createAdminHomeScene());
+			primaryStage.setScene(new AdminHomeScene(primaryStage, authManager).createAdminHomeScene());
 			break;
 		case STUDENT:
 			// Navigate to Student Home
-			primaryStage.setScene(new StudentHomeScene(primaryStage, userManager).createStudentHomeScene());
+			primaryStage.setScene(new StudentHomeScene(primaryStage, authManager).createStudentHomeScene());
 			break;
 		case INSTRUCTOR:
 			// Navigate to Instructor Home
-			primaryStage.setScene(new InstructorHomeScene(primaryStage, userManager).createInstructorHomeScene());
+			primaryStage.setScene(new InstructorHomeScene(primaryStage, authManager).createInstructorHomeScene());
 			break;
 		default:
 			// Handle unknown role
-			new ErrorScene(primaryStage).showError("Unknown role.");
+			new ErrorScene().showError("Unknown role.");
 		}
 	}
 }

@@ -1,4 +1,4 @@
-package frontend;
+package frontend.AdminScene;
 
 import backend.Role;
 import backend.AuthManager;
@@ -12,12 +12,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class CreateInviteScene {
-    private AuthManager userManager;
+    private AuthManager authManager;
     private Stage primaryStage;
 
-    // Constructor to accept Invitations and UserManager
-    public CreateInviteScene(AuthManager userManager, Stage primaryStage) {
-        this.userManager = userManager;
+    // Constructor to accept Invitations and authManager
+    public CreateInviteScene(AuthManager authManager, Stage primaryStage) {
+        this.authManager = authManager;
         this.primaryStage = primaryStage;
     }
 
@@ -79,12 +79,11 @@ public class CreateInviteScene {
         }
 
         // Call Invitations to invite the user
-        String invitationCode = userManager.inviteUser(username, email, roles);
+        String invitationCode = authManager.inviteUser(username, email, roles);
 
         // Show invitation code to the admin
         if (invitationCode != null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Invitation sent! Invitation code: " + invitationCode);
-            System.out.println(invitationCode); // Optional: for logging purposes
             alert.showAndWait();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Failed to send invitation. Please try again.");
@@ -92,6 +91,6 @@ public class CreateInviteScene {
         }
 
         // Navigate back to Admin Home Scene
-        primaryStage.setScene(new AdminHomeScene(primaryStage, userManager).createAdminHomeScene());
+        primaryStage.setScene(new AdminHomeScene(primaryStage, authManager).createAdminHomeScene());
     }
 }

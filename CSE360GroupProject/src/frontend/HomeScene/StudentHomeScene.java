@@ -10,11 +10,11 @@ import javafx.stage.Stage;
 
 public class StudentHomeScene {
     private Stage primaryStage;
-    private AuthManager userManager;
+    private AuthManager authManager;
 
-    public StudentHomeScene(Stage primaryStage, AuthManager userManager) {
+    public StudentHomeScene(Stage primaryStage, AuthManager authManager) {
         this.primaryStage = primaryStage;
-        this.userManager = userManager; // Store the userManager
+        this.authManager = authManager; // Store the authManager
     }
 
     public Scene createStudentHomeScene() {
@@ -34,7 +34,7 @@ public class StudentHomeScene {
 
     private void handleLogout() {
         // Navigate back to the login scene
-        LoginScene loginScene = new LoginScene(primaryStage, userManager); // You may need to pass the userManager
+        LoginScene loginScene = new LoginScene(primaryStage, authManager); // You may need to pass the authManager
         primaryStage.setScene(loginScene.createLoginScene()); // Switch back to the login scene
     }
 }
