@@ -8,15 +8,38 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * <p> Title: InstructorHomeScene Class. </p>
+ * 
+ * <p> Description: This class represents the home page for instructors after they have logged in. 
+ * It provides a welcome message and a logout option to navigate back to the login scene. </p>
+ * 
+ * @author Zeel Tejashkumar Shah
+ * 
+ * @version 1.0 2024-10-09 Initial implementation
+ */
+
 public class InstructorHomeScene {
     private Stage primaryStage;
     private AuthManager authManager;
 
+    /**
+     * Constructor for the InstructorHomeScene class.
+     *
+     * @param primaryStage The main stage of the application.
+     * @param authManager  The authentication manager to handle user authentication.
+     */
     public InstructorHomeScene(Stage primaryStage, AuthManager authManager) {
         this.primaryStage = primaryStage;
         this.authManager = authManager; // Store the authManager
     }
 
+    /**
+     * Creates and returns the instructor's home scene, with a welcome message 
+     * and a logout button.
+     *
+     * @return The instructor's home scene.
+     */
     public Scene createInstructorHomeScene() {
         VBox homeVBox = new VBox(10);
         homeVBox.setPrefSize(300, 200);
@@ -32,6 +55,9 @@ public class InstructorHomeScene {
         return new Scene(homeVBox, 300, 200); // Return the home scene
     }
 
+    /**
+     * Handles the logout process by navigating the user back to the login scene.
+     */
     private void handleLogout() {
         // Navigate back to the login scene
         LoginScene loginScene = new LoginScene(primaryStage, authManager); // You may need to pass the authManager
