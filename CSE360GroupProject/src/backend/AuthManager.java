@@ -80,7 +80,7 @@ public class AuthManager {
 	}
 
 	// Method to return the list of users
-	public List<User> getUsers() {
+	public List<User> getAllUsers() {
 		return users;
 	}
 

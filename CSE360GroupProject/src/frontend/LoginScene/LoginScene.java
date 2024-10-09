@@ -15,7 +15,7 @@ public class LoginScene {
     }
 
     public Scene createLoginScene() {
-        if (authManager.getUsers().isEmpty()) {
+        if (authManager.getAllUsers().isEmpty()) {
             return new CreateAdminScene(primaryStage, authManager).createAdminScene();
         } else {
             return new StandardLoginScene(primaryStage, authManager).createLoginFields();

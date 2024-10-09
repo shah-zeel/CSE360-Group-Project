@@ -28,7 +28,13 @@ public class Main extends Application {
         studentRoles.add(Role.STUDENT);
         User studentUser = authManager.createUser("t1", "t1", studentRoles);
         authManager.completeAccountSetup(studentUser, "Admin", "", "User", "Admin", "admin@example.com");
-		*/
+
+        authManager.completeAccountSetup(authManager.createUser("t2", "t2", studentRoles), "Admin", "", "User", "Admin", "admin@example.com");
+        authManager.completeAccountSetup(authManager.createUser("t3", "t2", studentRoles), "Admin", "", "User", "Admin", "admin@example.com");
+        authManager.completeAccountSetup(authManager.createUser("t3","t2", studentRoles), "Admin", "", "User", "Admin", "admin@example.com");
+        authManager.completeAccountSetup(authManager.createUser("t4", "t2", studentRoles), "Admin", "", "User", "Admin", "admin@example.com");
+        authManager.completeAccountSetup(authManager.createUser("t5", "t2", studentRoles), "Admin", "", "User", "Admin", "admin@example.com");
+        */
         
         // Create the login scene
         LoginScene loginScene = new LoginScene(primaryStage, authManager);

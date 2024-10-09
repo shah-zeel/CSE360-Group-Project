@@ -1,9 +1,7 @@
 package frontend.HomeScene;
 
 import backend.AuthManager;
-import frontend.HomeScene.AdminTasks.CreateInviteScene;
-import frontend.HomeScene.AdminTasks.CreatePasswordResetRequestScene;
-import frontend.HomeScene.AdminTasks.DeleteUserScene;
+import frontend.HomeScene.AdminTasks.*;
 import frontend.LoginScene.LoginScene;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -39,7 +37,7 @@ public class AdminHomeScene {
         resetPasswordButton.setOnAction(e -> handlePasswordResetRequest());
 
         deleteUserButton.setOnAction(e -> handleDeleteUser());
-        //listUsersButton.setOnAction(e -> listUsers());
+        listUsersButton.setOnAction(e -> handleListUsers());
         //modifyRoleButton.setOnAction(e -> modifyRole());
 
         // Adding action for the logout button
@@ -69,6 +67,10 @@ public class AdminHomeScene {
             primaryStage.setScene(deleteUserScene.createDeleteUserScene());
     }
 
+    private void handleListUsers() {
+        ListUsersScene listUsersScene = new ListUsersScene(primaryStage, authManager);
+        primaryStage.setScene(listUsersScene.createListUsersScene());
+    }
 
     private void handleLogout() {
         // Navigate back to the login scene
