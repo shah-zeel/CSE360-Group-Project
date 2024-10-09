@@ -1,7 +1,7 @@
 import backend.*;
 import java.util.*;
 
-public class TestMain {
+public class Test {
 
     public static void main(String[] args) {
         AuthManager authManager = new AuthManager();
