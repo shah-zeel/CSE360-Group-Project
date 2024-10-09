@@ -1,26 +1,48 @@
 package frontend;
 
-import backend.User;
-import backend.AuthManager;
+import backend.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import java.util.regex.*;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+/**
+ * <p> Title: SetupScene Class. </p>
+ * 
+ * <p> Description: This class provides the account setup interface for a user, including fields for personal 
+ * information like first name, middle name, last name, preferred name, and email. It handles input validation 
+ * and triggers the account setup process through the authentication manager. </p>
+ * 
+ * @author Zeel Tejashkumar Shah
+ * 
+ * @version 1.0 2024-10-09 Initial implementation
+ */
 
 public class SetupScene {
     private User user;
     private AuthManager authManager;
     private Stage primaryStage;
 
+    /**
+     * Constructor for the SetupScene class.
+     *
+     * @param user         The user for whom the account setup is being performed.
+     * @param authManager  The authentication manager to handle account setup.
+     * @param primaryStage The main stage of the application.
+     */
     public SetupScene(User user, AuthManager authManager, Stage primaryStage) {
         this.user = user;
         this.authManager = authManager;
         this.primaryStage = primaryStage;
     }
 
+    /**
+     * Creates and returns the account setup scene, including input fields for user
+     * information and a button to complete the setup.
+     *
+     * @return The account setup scene.
+     */
     public Scene createSetupScene() {
         VBox setupVBox = new VBox(10);
         setupVBox.setPrefSize(300, 300);
@@ -51,6 +73,16 @@ public class SetupScene {
         return new Scene(setupVBox, 300, 400); // Return the setup scene
     }
 
+    /**
+     * Handles the account setup process by validating the input fields and 
+     * completing the setup through the authentication manager.
+     *
+     * @param firstName     The user's first name.
+     * @param middleName    The user's middle name.
+     * @param lastName      The user's last name.
+     * @param preferredName The user's preferred name.
+     * @param email         The user's email address.
+     */
     private void handleCompleteSetup(String firstName, String middleName, String lastName, 
                                       String preferredName, String email) {
         // Perform validations
@@ -74,6 +106,17 @@ public class SetupScene {
         }
     }
 
+    /**
+     * Validates the input fields for the setup process. Ensures that required 
+     * fields are filled and that the email format and names are valid.
+     *
+     * @param firstName     The user's first name.
+     * @param middleName    The user's middle name.
+     * @param lastName      The user's last name.
+     * @param preferredName The user's preferred name.
+     * @param email         The user's email address.
+     * @return A validation message string. If no errors, returns an empty string.
+     */
     private String validateInputs(String firstName, String middleName, String lastName, 
                                    String preferredName, String email) {
         StringBuilder errors = new StringBuilder();
@@ -102,6 +145,12 @@ public class SetupScene {
         return errors.toString();
     }
 
+    /**
+     * Validates the email format using a regular expression.
+     *
+     * @param email The email to validate.
+     * @return True if the email is valid, otherwise false.
+     */
     private boolean isValidEmail(String email) {
         // Simple regex for email validation
         String emailRegex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
@@ -110,6 +159,12 @@ public class SetupScene {
         return matcher.matches();
     }
 
+    /**
+     * Validates that a name contains only letters and spaces.
+     *
+     * @param name The name to validate.
+     * @return True if the name is valid, otherwise false.
+     */
     private boolean isValidName(String name) {
         // Check if the name contains only letters and spaces
         return name.matches("[a-zA-Z\\s]+");

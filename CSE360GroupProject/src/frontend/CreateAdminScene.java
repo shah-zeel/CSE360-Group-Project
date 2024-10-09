@@ -1,8 +1,7 @@
 package frontend;
 
-import backend.User;
+import backend.*;
 import frontend.LoginScene.LoginScene;
-import backend.AuthManager;
 import javafx.animation.PauseTransition;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -11,28 +10,53 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class CreateAdminScene {
-    private AuthManager authManager;
-    private Stage primaryStage;
+/**
+ * <p> Title: CreateAdminScene Class. </p>
+ * 
+ * <p> Description: A class that provides the user interface and logic for creating an admin account. 
+ * It handles input validation, password confirmation, and interacts with the AuthManager to create the first admin user. 
+ * Upon successful admin creation, the user is redirected to the login screen. </p>
+ * 
+ * @author Zeel Tejashkumar Shah
+ * 
+ * @version 1.0 2024-10-09 Initial implementation
+ */
 
+public class CreateAdminScene {
+    private AuthManager authManager; // Manages user authentication
+    private Stage primaryStage; // Main application stage
+
+    /**
+     * Constructor for CreateAdminScene.
+     *
+     * @param primaryStage the main application stage
+     * @param authManager  the AuthManager for user authentication
+     */
     public CreateAdminScene(Stage primaryStage, AuthManager authManager) {
         this.authManager = authManager;
         this.primaryStage = primaryStage;
     }
 
+    /**
+     * Creates the admin account scene with input fields for username and password.
+     *
+     * @return Scene representing the admin account creation UI
+     */
     public Scene createAdminScene() {
-        VBox adminVBox = new VBox(10);
-        Label usernameLabel = new Label("Username:");
-        TextField usernameField = new TextField();
-        Label passwordLabel = new Label("Password:");
-        PasswordField passwordField = new PasswordField();
-        Label confirmPasswordLabel = new Label("Confirm Password:");
-        PasswordField confirmPasswordField = new PasswordField();
-        Button createAdminButton = new Button("Create Admin Account");
+        VBox adminVBox = new VBox(10); // Vertical layout with 10px spacing
+        Label usernameLabel = new Label("Username:"); // Username label
+        TextField usernameField = new TextField(); // Input field for username
+        Label passwordLabel = new Label("Password:"); // Password label
+        PasswordField passwordField = new PasswordField(); // Input field for password
+        Label confirmPasswordLabel = new Label("Confirm Password:"); // Confirm password label
+        PasswordField confirmPasswordField = new PasswordField(); // Input field for confirming password
+        Button createAdminButton = new Button("Create Admin Account"); // Button to create admin account
 
-        adminVBox.getChildren().addAll(usernameLabel, usernameField, passwordLabel, passwordField, confirmPasswordLabel,
-                confirmPasswordField, createAdminButton);
+        // Add UI components to the layout
+        adminVBox.getChildren().addAll(usernameLabel, usernameField, passwordLabel, passwordField, 
+                confirmPasswordLabel, confirmPasswordField, createAdminButton);
 
+        // Set action for the create admin button
         createAdminButton.setOnAction(e -> handleCreateAdmin(usernameField.getText(), passwordField.getText(),
                 confirmPasswordField.getText(), adminVBox));
 
@@ -40,26 +64,37 @@ public class CreateAdminScene {
         return new Scene(adminVBox, 300, 300); // Return the admin scene
     }
 
+    /**
+     * Handles the creation of an admin account.
+     *
+     * @param username        the username for the admin account
+     * @param password        the password for the admin account
+     * @param confirmPassword the password confirmation
+     * @param adminVBox       the VBox containing UI elements for the admin scene
+     */
     private void handleCreateAdmin(String username, String password, String confirmPassword, VBox adminVBox) {
         // Clear previous error messages
         adminVBox.getChildren().removeIf(node -> node instanceof Label && ((Label) node).getText().startsWith("Error:"));
 
-        // Check for null or empty username and passwords
+        // Validate username
         if (username == null || username.isEmpty()) {
             showError("Error: Username cannot be empty.", adminVBox);
             return; // Exit the method if username is invalid
         }
 
+        // Validate password
         if (password == null || password.isEmpty()) {
             showError("Error: Password cannot be empty.", adminVBox);
             return; // Exit the method if password is invalid
         }
 
+        // Validate confirm password
         if (confirmPassword == null || confirmPassword.isEmpty()) {
             showError("Error: Confirm Password cannot be empty.", adminVBox);
             return; // Exit the method if confirm password is invalid
         }
 
+        // Check if passwords match
         if (!password.equals(confirmPassword)) {
             showError("Error: Passwords do not match. Please try again.", adminVBox);
             return; // Exit the method if passwords do not match
@@ -80,6 +115,11 @@ public class CreateAdminScene {
         }
     }
 
+    /**
+     * Redirects to the login scene after successful admin creation.
+     *
+     * @param adminVBox the VBox containing UI elements for the admin scene
+     */
     private void redirectToLogin(VBox adminVBox) {
         // Clear previous confirmation messages
         adminVBox.getChildren().removeIf(node -> node instanceof Label
@@ -88,7 +128,7 @@ public class CreateAdminScene {
         // Reset the input fields for a new login attempt
         for (Node node : adminVBox.getChildren()) {
             if (node instanceof TextField) {
-                ((TextField) node).clear();
+                ((TextField) node).clear(); // Clear text fields
             }
         }
 
@@ -96,9 +136,15 @@ public class CreateAdminScene {
         primaryStage.setScene(new LoginScene(primaryStage, authManager).createLoginScene());
     }
 
+    /**
+     * Displays an error message in the admin scene.
+     *
+     * @param message   the error message to display
+     * @param adminVBox the VBox containing UI elements for the admin scene
+     */
     private void showError(String message, VBox adminVBox) {
-        Label errorLabel = new Label(message);
-        errorLabel.setStyle("-fx-text-fill: red;");
-        adminVBox.getChildren().add(errorLabel);
+        Label errorLabel = new Label(message); // Create label for the error message
+        errorLabel.setStyle("-fx-text-fill: red;"); // Set text color to red
+        adminVBox.getChildren().add(errorLabel); // Add error message to the layout
     }
 }
