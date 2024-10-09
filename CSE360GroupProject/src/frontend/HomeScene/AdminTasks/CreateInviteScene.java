@@ -1,4 +1,4 @@
-package frontend.AdminScene;
+package frontend.HomeScene.AdminTasks;
 
 import backend.Role;
 import backend.AuthManager;

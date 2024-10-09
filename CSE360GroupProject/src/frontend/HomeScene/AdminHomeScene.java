@@ -1,8 +1,8 @@
 package frontend.HomeScene;
 
 import backend.AuthManager;
-import frontend.AdminScene.CreateInviteScene;
-import frontend.AdminScene.CreatePasswordResetRequestScene;
+import frontend.HomeScene.AdminTasks.CreateInviteScene;
+import frontend.HomeScene.AdminTasks.CreatePasswordResetRequestScene;
 import frontend.LoginScene.LoginScene;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
