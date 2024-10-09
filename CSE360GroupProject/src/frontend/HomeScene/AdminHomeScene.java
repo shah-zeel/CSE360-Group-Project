@@ -38,7 +38,7 @@ public class AdminHomeScene {
 
         deleteUserButton.setOnAction(e -> handleDeleteUser());
         listUsersButton.setOnAction(e -> handleListUsers());
-        //modifyRoleButton.setOnAction(e -> modifyRole());
+        modifyRoleButton.setOnAction(e -> handleModifyRole());
 
         // Adding action for the logout button
         logoutButton.setOnAction(e -> handleLogout());
@@ -70,6 +70,11 @@ public class AdminHomeScene {
     private void handleListUsers() {
         ListUsersScene listUsersScene = new ListUsersScene(primaryStage, authManager);
         primaryStage.setScene(listUsersScene.createListUsersScene());
+    }
+    
+    private void handleModifyRole() {
+    	ModifyRoleScene modifyRoleScene = new ModifyRoleScene(primaryStage, authManager);
+        primaryStage.setScene(modifyRoleScene.createModifyRoleScene());
     }
 
     private void handleLogout() {
