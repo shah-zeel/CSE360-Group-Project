@@ -7,11 +7,11 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class InvitationCodeLoginScene {
+public class LoginWithInvitationCodeScene {
     private Stage primaryStage;
     private AuthManager authManager;
 
-    public InvitationCodeLoginScene(Stage primaryStage, AuthManager authManager) {
+    public LoginWithInvitationCodeScene(Stage primaryStage, AuthManager authManager) {
         this.primaryStage = primaryStage;
         this.authManager = authManager;
     }
@@ -34,7 +34,7 @@ public class InvitationCodeLoginScene {
 
     private void handleInvitationCodeLogin(String invitationCode) {
         if (authManager.isUserInvited(invitationCode)) {
-                primaryStage.setScene(new InvitationCodePasswordSetupScene(invitationCode, authManager, primaryStage).createPasswordSetupScene());
+                primaryStage.setScene(new SetupPasswordWithInvitationCodeScene(invitationCode, authManager, primaryStage).createPasswordSetupScene());
         } else {
             new ErrorScene().showError("Invalid invitation code.");
         }

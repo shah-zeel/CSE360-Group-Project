@@ -30,7 +30,7 @@ public class StandardLoginScene {
         Button passwordResetSceneButton = new Button("Forgot Password? Login with OTP");
 
         loginButton.setOnAction(e -> handleLogin(usernameField.getText(), passwordField.getText()));
-        invitationCodeSceneButton.setOnAction(e -> primaryStage.setScene(new InvitationCodeLoginScene(primaryStage, authManager).createInvitationCodeLoginScene()));
+        invitationCodeSceneButton.setOnAction(e -> primaryStage.setScene(new LoginWithInvitationCodeScene(primaryStage, authManager).createInvitationCodeLoginScene()));
         passwordResetSceneButton.setOnAction(e -> primaryStage.setScene(new PasswordResetScene(primaryStage, authManager).createPasswordResetScene()));
 
         loginVBox.getChildren().addAll(usernameLabel, usernameField, passwordLabel, passwordField, loginButton, invitationCodeSceneButton, passwordResetSceneButton);

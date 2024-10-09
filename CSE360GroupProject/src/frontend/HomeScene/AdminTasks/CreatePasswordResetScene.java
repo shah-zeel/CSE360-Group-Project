@@ -7,11 +7,11 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class CreatePasswordResetRequestScene {
+public class CreatePasswordResetScene {
     private Stage primaryStage;
     private AuthManager authManager;
 
-    public CreatePasswordResetRequestScene(Stage primaryStage, AuthManager authManager) {
+    public CreatePasswordResetScene(Stage primaryStage, AuthManager authManager) {
         this.primaryStage = primaryStage;
         this.authManager = authManager;
     }

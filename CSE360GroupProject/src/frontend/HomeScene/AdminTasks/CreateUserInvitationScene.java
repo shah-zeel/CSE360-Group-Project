@@ -11,12 +11,12 @@ import javafx.stage.Stage;
 import java.util.HashSet;
 import java.util.Set;
 
-public class CreateInviteScene {
+public class CreateUserInvitationScene {
     private AuthManager authManager;
     private Stage primaryStage;
 
     // Constructor to accept Invitations and authManager
-    public CreateInviteScene(AuthManager authManager, Stage primaryStage) {
+    public CreateUserInvitationScene(AuthManager authManager, Stage primaryStage) {
         this.authManager = authManager;
         this.primaryStage = primaryStage;
     }

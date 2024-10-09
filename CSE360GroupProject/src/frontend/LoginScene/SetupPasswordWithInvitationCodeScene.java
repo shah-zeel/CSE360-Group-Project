@@ -9,12 +9,12 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class InvitationCodePasswordSetupScene {
+public class SetupPasswordWithInvitationCodeScene {
     private String invitationCode;
     private AuthManager userManager;
     private Stage primaryStage;
 
-    public InvitationCodePasswordSetupScene(String invitationCode, AuthManager userManager, Stage primaryStage) {
+    public SetupPasswordWithInvitationCodeScene(String invitationCode, AuthManager userManager, Stage primaryStage) {
         this.invitationCode = invitationCode;
         this.userManager = userManager;
         this.primaryStage = primaryStage;

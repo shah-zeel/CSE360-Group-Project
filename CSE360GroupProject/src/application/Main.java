@@ -5,45 +5,40 @@ import frontend.LoginScene.LoginScene;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import java.util.Set;
-import java.util.HashSet;
-import backend.Role;
-import backend.User;
 
+/**
+ * <p> Title: Main Class for the Application </p>
+ * 
+ * <p> Description: This is the main entry point of the application that initializes and launches the JavaFX interface.</p>
+ * 
+ * @author Zeel Tejashkumar Shah
+ * 
+ * @version 1.0 2404-10-08 Initial version with basic application setup.
+ */
 public class Main extends Application {
+    
+    /**
+     * <p> This method is called when the application is started. It sets up the primary stage and initializes the login scene. </p>
+     * 
+     * @param primaryStage The primary stage for this application, onto which the application scene can be set.
+     */
     @Override
     public void start(Stage primaryStage) {
         AuthManager authManager = new AuthManager(); // Create a user manager
         
-        /*
-        // Create an admin user for testing purposes
-        Set<Role> adminRoles = new HashSet<>();
-        adminRoles.add(Role.ADMIN);
-        User adminUser = authManager.createUser("zs", "z", adminRoles);
-
-        // Complete account setup for the admin user
-        authManager.completeAccountSetup(adminUser, "Admin", "", "User", "Admin", "admin@example.com");
-        // Invite the admin user (you can specify roles or modify as needed)
-        Set<Role> studentRoles = new HashSet<>();
-        studentRoles.add(Role.STUDENT);
-        User studentUser = authManager.createUser("t1", "t1", studentRoles);
-        authManager.completeAccountSetup(studentUser, "Admin", "", "User", "Admin", "admin@example.com");
-
-        authManager.completeAccountSetup(authManager.createUser("t2", "t2", studentRoles), "Admin", "", "User", "Admin", "admin@example.com");
-        authManager.completeAccountSetup(authManager.createUser("t3", "t2", studentRoles), "Admin", "", "User", "Admin", "admin@example.com");
-        authManager.completeAccountSetup(authManager.createUser("t3","t2", studentRoles), "Admin", "", "User", "Admin", "admin@example.com");
-        authManager.completeAccountSetup(authManager.createUser("t4", "t2", studentRoles), "Admin", "", "User", "Admin", "admin@example.com");
-        authManager.completeAccountSetup(authManager.createUser("t5", "t2", studentRoles), "Admin", "", "User", "Admin", "admin@example.com");
-        */
-        
         // Create the login scene
         LoginScene loginScene = new LoginScene(primaryStage, authManager);
-        Scene scene = loginScene.createLoginScene();
+        Scene scene = loginScene.createLoginScene(); // Create the login scene
 
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        primaryStage.setScene(scene); // Set the scene for the primary stage
+        primaryStage.show(); // Display the primary stage
     }
 
+    /**
+     * <p> The main method that serves as the entry point for the JavaFX application. </p>
+     * 
+     * @param args Command line arguments passed to the application.
+     */
     public static void main(String[] args) {
         launch(args); // Launch the JavaFX application
     }

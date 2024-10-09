@@ -52,13 +52,13 @@ public class AdminHomeScene {
 
     private void handleInviteUser() {
         // Create and set the AdminScene for inviting users
-        CreateInviteScene inviteScene = new CreateInviteScene(authManager, primaryStage);
+        CreateUserInvitationScene inviteScene = new CreateUserInvitationScene(authManager, primaryStage);
         primaryStage.setScene(inviteScene.createAdminScene()); // Switch to the AdminScene for inviting users
     }
 
     private void handlePasswordResetRequest() {
         // Create and set the AdminScene for creating password reset requests
-        CreatePasswordResetRequestScene resetScene = new CreatePasswordResetRequestScene(primaryStage, authManager);
+        CreatePasswordResetScene resetScene = new CreatePasswordResetScene(primaryStage, authManager);
         primaryStage.setScene(resetScene.createResetRequestScene()); // Switch to the Password Reset Request scene
     }
     
