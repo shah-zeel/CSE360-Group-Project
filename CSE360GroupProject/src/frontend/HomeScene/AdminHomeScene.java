@@ -3,6 +3,7 @@ package frontend.HomeScene;
 import backend.AuthManager;
 import frontend.HomeScene.AdminTasks.CreateInviteScene;
 import frontend.HomeScene.AdminTasks.CreatePasswordResetRequestScene;
+import frontend.HomeScene.AdminTasks.DeleteUserScene;
 import frontend.LoginScene.LoginScene;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -26,6 +27,9 @@ public class AdminHomeScene {
         Label welcomeLabel = new Label("Welcome to the Admin Home Page!");
         Button inviteButton = new Button("Invite User"); // Button to invite user
         Button resetPasswordButton = new Button("Create Password Reset Request"); // Button to reset password
+        Button deleteUserButton = new Button("Delete User");
+        Button listUsersButton = new Button("List Users");
+        Button modifyRoleButton = new Button("Add/Remove Role");
         Button logoutButton = new Button("Logout");
 
         // Adding action for the invite button
@@ -34,12 +38,18 @@ public class AdminHomeScene {
         // Adding action for the password reset request button
         resetPasswordButton.setOnAction(e -> handlePasswordResetRequest());
 
+        deleteUserButton.setOnAction(e -> handleDeleteUser());
+        //listUsersButton.setOnAction(e -> listUsers());
+        //modifyRoleButton.setOnAction(e -> modifyRole());
+
         // Adding action for the logout button
         logoutButton.setOnAction(e -> handleLogout());
 
-        homeVBox.getChildren().addAll(welcomeLabel, inviteButton, resetPasswordButton, logoutButton); // Add invite and reset buttons to the layout
+        homeVBox.getChildren().addAll(welcomeLabel, inviteButton, 
+        		resetPasswordButton, deleteUserButton, listUsersButton, modifyRoleButton, logoutButton); // Add invite and reset buttons to the layout
+        
         primaryStage.setTitle("Home");
-        return new Scene(homeVBox, 300, 200); // Return the home scene
+        return new Scene(homeVBox, 300, 400);
     }
 
     private void handleInviteUser() {
@@ -53,6 +63,12 @@ public class AdminHomeScene {
         CreatePasswordResetRequestScene resetScene = new CreatePasswordResetRequestScene(primaryStage, authManager);
         primaryStage.setScene(resetScene.createResetRequestScene()); // Switch to the Password Reset Request scene
     }
+    
+    private void handleDeleteUser() {
+            DeleteUserScene deleteUserScene = new DeleteUserScene(primaryStage, authManager);
+            primaryStage.setScene(deleteUserScene.createDeleteUserScene());
+    }
+
 
     private void handleLogout() {
         // Navigate back to the login scene

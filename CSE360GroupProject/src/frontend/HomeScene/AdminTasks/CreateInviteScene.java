@@ -38,10 +38,13 @@ public class CreateInviteScene {
         CheckBox instructorRoleCheckBox = new CheckBox("Instructor");
 
         Button inviteButton = new Button("Send Invitation");
+        
+        Button backButton = new Button("Back");
+        backButton.setOnAction(e -> primaryStage.setScene(new AdminHomeScene(primaryStage, authManager).createAdminHomeScene()));
 
         // Adding all components to the VBox
         adminVBox.getChildren().addAll(usernameLabel, usernameField, emailLabel, emailField, rolesLabel,
-                adminRoleCheckBox, studentRoleCheckBox, instructorRoleCheckBox, inviteButton);
+                adminRoleCheckBox, studentRoleCheckBox, instructorRoleCheckBox, inviteButton, backButton);
 
         // Handle invite button click
         inviteButton.setOnAction(e -> handleInviteUser(usernameField.getText(), emailField.getText(),

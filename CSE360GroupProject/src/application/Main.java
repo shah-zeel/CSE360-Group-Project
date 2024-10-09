@@ -26,9 +26,9 @@ public class Main extends Application {
         // Invite the admin user (you can specify roles or modify as needed)
         Set<Role> studentRoles = new HashSet<>();
         studentRoles.add(Role.STUDENT);
-        String invitationCode = authManager.inviteUser("z", "z@example.com", studentRoles);
-        System.out.println("Invitation Code for studentRoles: " + invitationCode); // Print the invitation code for reference
-        */
+        User studentUser = authManager.createUser("t1", "t1", studentRoles);
+        authManager.completeAccountSetup(studentUser, "Admin", "", "User", "Admin", "admin@example.com");
+		*/
         
         // Create the login scene
         LoginScene loginScene = new LoginScene(primaryStage, authManager);
