@@ -294,15 +294,16 @@ public class AuthManager {
 	 * @return true if the password was reset successfully, false otherwise
 	 */
 	public boolean updateUserPassword(String email, String newPassword) {
-		// Loop through the list of users to find the user with the matching email
-		for (User user : users) {
-			if (user.getEmail().equals(email)) {
-				// Update the user's password
-				user.setPassword(newPassword);
-				return true; // Exit after updating the password
-			}
-		}
-		return false;
+	    // Loop through the list of users to find the user with the matching email
+	    for (User user : users) {
+	        // Check if user or email is null
+	        if (user != null && user.getEmail() != null && user.getEmail().equals(email)) {
+	            // Update the user's password
+	            user.setPassword(newPassword);
+	            return true; // Exit after updating the password
+	        }
+	    }
+	    return false;
 	}
 
 	/**
