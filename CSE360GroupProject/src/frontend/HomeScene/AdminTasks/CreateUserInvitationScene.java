@@ -11,16 +11,38 @@ import javafx.stage.Stage;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * <p> Title: CreateUserInvitationScene Class. </p>
+ * 
+ * <p> Description: This class provides a scene where an admin can invite a new user by entering 
+ * the username, email, and selecting roles (Admin, Student, Instructor). The invitation code is 
+ * generated and displayed upon successful invitation. </p>
+ * 
+ * @author Zeel Tejashkumar Shah
+ * 
+ * @version 1.0 2024-10-09 Initial implementation
+ */
+
 public class CreateUserInvitationScene {
     private AuthManager authManager;
     private Stage primaryStage;
 
-    // Constructor to accept Invitations and authManager
+    /**
+     * Constructor to initialize the CreateUserInvitationScene.
+     *
+     * @param authManager  The authentication manager to handle user invitations.
+     * @param primaryStage The main stage of the application.
+     */
     public CreateUserInvitationScene(AuthManager authManager, Stage primaryStage) {
         this.authManager = authManager;
         this.primaryStage = primaryStage;
     }
 
+    /**
+     * Creates the admin scene where the admin can enter user details and send an invitation.
+     *
+     * @return The scene for creating user invitations.
+     */
     public Scene createAdminScene() {
         VBox adminVBox = new VBox(10);
         adminVBox.setPrefSize(300, 300);
@@ -54,6 +76,15 @@ public class CreateUserInvitationScene {
         return new Scene(adminVBox, 300, 400); // Return the admin scene
     }
 
+    /**
+     * Handles the user invitation logic by validating inputs and sending the invitation.
+     *
+     * @param username     The username entered by the admin.
+     * @param email        The email entered by the admin.
+     * @param isAdmin      Whether the Admin role is selected.
+     * @param isStudent    Whether the Student role is selected.
+     * @param isInstructor Whether the Instructor role is selected.
+     */
     private void handleInviteUser(String username, String email, boolean isAdmin, boolean isStudent, boolean isInstructor) {
         // Validate input
         if (username.isEmpty() || email.isEmpty()) {

@@ -7,15 +7,39 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * <p> Title: CreatePasswordResetScene Class. </p>
+ * 
+ * <p> Description: This class provides a scene where an admin can request a password reset 
+ * for a user by entering the user's email. The system checks if the user exists before processing 
+ * the reset request. Upon successful submission, the system navigates back to the admin home scene. </p>
+ * 
+ * @author Zeel Tejashkumar Shah
+ * 
+ * @version 1.0 2024-10-09 Initial implementation
+ */
+
 public class CreatePasswordResetScene {
     private Stage primaryStage;
     private AuthManager authManager;
 
+    /**
+     * Constructor for the CreatePasswordResetScene class.
+     *
+     * @param primaryStage The main stage of the application.
+     * @param authManager  The authentication manager for managing user authentication.
+     */
     public CreatePasswordResetScene(Stage primaryStage, AuthManager authManager) {
         this.primaryStage = primaryStage;
         this.authManager = authManager;
     }
 
+    /**
+     * Creates and returns a scene for password reset requests. Admins can enter a user's email
+     * to request a password reset. If the email is valid, a request is sent.
+     *
+     * @return The password reset request scene.
+     */
     public Scene createResetRequestScene() {
         VBox layout = new VBox(10);
 
@@ -45,7 +69,6 @@ public class CreatePasswordResetScene {
                 emailField.clear();
             }
         });
-
 
         // Action for the back button
         backButton.setOnAction(e -> {

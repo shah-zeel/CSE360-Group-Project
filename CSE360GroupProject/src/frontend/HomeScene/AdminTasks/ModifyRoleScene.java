@@ -8,11 +8,28 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.util.*;
 
+/**
+ * <p> Title: ModifyRoleScene Class. </p>
+ * 
+ * <p> Description: This class provides a scene for admins to modify user roles by fetching current 
+ * roles, displaying checkboxes for role modification, and applying the changes. </p>
+ * 
+ * @author Zeel Tejashkumar Shah
+ * 
+ * @version 1.0 2024-10-09 Initial implementation
+ */
+
 public class ModifyRoleScene {
     private Stage primaryStage;
     private AuthManager authManager;
     private Button applyButton; // Declare applyButton at the class level
     
+    /**
+     * Constructor to initialize the ModifyRoleScene.
+     *
+     * @param primaryStage The main stage of the application.
+     * @param authManager  The authentication manager to handle user role modifications.
+     */
     public ModifyRoleScene(Stage primaryStage, AuthManager authManager) {
         this.primaryStage = primaryStage;
         this.authManager = authManager;
@@ -20,6 +37,11 @@ public class ModifyRoleScene {
         applyButton.setVisible(false); // Initially hidden
     }
 
+    /**
+     * Creates the scene where the admin can fetch and modify roles for a user.
+     *
+     * @return The scene for modifying user roles.
+     */
     public Scene createModifyRoleScene() {
         VBox vbox = new VBox(10);
 
@@ -112,7 +134,11 @@ public class ModifyRoleScene {
         return new Scene(vbox, 300, 400);
     }
 
-    // Method to show alert messages
+    /**
+     * Method to show alert messages.
+     *
+     * @param message The message to be displayed in the alert.
+     */
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information");
@@ -121,7 +147,11 @@ public class ModifyRoleScene {
         alert.showAndWait();
     }
 
-    // Method to clear all checkboxes
+    /**
+     * Method to clear all checkboxes.
+     *
+     * @param roleCheckBoxes The map of role checkboxes to be cleared.
+     */
     private void clearCheckBoxes(Map<Role, CheckBox> roleCheckBoxes) {
         for (CheckBox checkBox : roleCheckBoxes.values()) {
             checkBox.setSelected(false);

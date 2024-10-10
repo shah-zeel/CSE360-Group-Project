@@ -12,6 +12,18 @@ import javafx.stage.Stage;
 
 import java.util.List;
 
+/**
+ * <p> Title: ListUsersScene Class. </p>
+ * 
+ * <p> Description: This class provides a scene that lists users for the admin in a paginated format.
+ * It allows the admin to browse users with forward and backward navigation buttons. Each page 
+ * displays a set number of users, and the admin can return to the home scene using the back button. </p>
+ * 
+ * @author Zeel Tejashkumar Shah
+ * 
+ * @version 1.0 2024-10-09 Initial implementation
+ */
+
 public class ListUsersScene {
     private Stage primaryStage;
     private AuthManager authManager;
@@ -23,6 +35,12 @@ public class ListUsersScene {
     private VBox vbox; // VBox for the main layout
     private HBox buttonBox; // HBox for the buttons
 
+    /**
+     * Constructor to initialize the ListUsersScene.
+     *
+     * @param primaryStage The main stage of the application.
+     * @param authManager  The authentication manager to retrieve and display users.
+     */
     public ListUsersScene(Stage primaryStage, AuthManager authManager) {
         this.primaryStage = primaryStage;
         this.authManager = authManager;
@@ -32,6 +50,10 @@ public class ListUsersScene {
         initializeButtons(); // Initialize buttons once
     }
 
+    /**
+     * Initializes the left and right arrow buttons, and the back button, and assigns
+     * their action events for navigation and returning to the home scene.
+     */
     private void initializeButtons() {
         // Initialize buttons only once
         leftArrowButton = new Button("<");
@@ -62,12 +84,20 @@ public class ListUsersScene {
         vbox.getChildren().add(buttonBox);
     }
 
+    /**
+     * Creates the scene to list users in a paginated manner.
+     *
+     * @return The scene for listing users.
+     */
     public Scene createListUsersScene() {
         updateUserList(); // Load the first page of users
         return new Scene(vbox, 300, 400);
     }
 
-    // Method to update the user list based on the current page
+    /**
+     * Updates the displayed user list based on the current page. The user information is
+     * displayed, and navigation buttons are updated according to available users.
+     */
     private void updateUserList() {
         // Clear previous user entries
         vbox.getChildren().removeIf(node -> node instanceof Label && node != buttonBox);

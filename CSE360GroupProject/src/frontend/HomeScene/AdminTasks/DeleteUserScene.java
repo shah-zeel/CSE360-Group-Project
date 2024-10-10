@@ -8,15 +8,38 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * <p> Title: DeleteUserScene Class. </p>
+ * 
+ * <p> Description: This class provides a scene for admins to delete a user by entering the username 
+ * and confirming the deletion action. A confirmation prompt is displayed before the user is removed 
+ * from the system. </p>
+ * 
+ * @author Zeel Tejashkumar Shah
+ * 
+ * @version 1.0 2024-10-09 Initial implementation
+ */
+
 public class DeleteUserScene {
     private Stage primaryStage;
     private AuthManager authManager;
 
+    /**
+     * Constructor to initialize the DeleteUserScene.
+     *
+     * @param primaryStage The main stage of the application.
+     * @param authManager  The authentication manager to handle user deletions.
+     */
     public DeleteUserScene(Stage primaryStage, AuthManager authManager) {
         this.primaryStage = primaryStage;
         this.authManager = authManager;
     }
 
+    /**
+     * Creates the scene where the admin can enter a username and delete the user.
+     *
+     * @return The scene for deleting a user.
+     */
     public Scene createDeleteUserScene() {
         VBox vbox = new VBox(10);
         Label instructionLabel = new Label("Enter the username of the user you want to delete:");
