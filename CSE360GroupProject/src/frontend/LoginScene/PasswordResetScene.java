@@ -7,15 +7,39 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * <p> Title: PasswordResetScene Class. </p>
+ * 
+ * <p> Description: A class responsible for managing the password reset functionality.
+ * It allows users to enter their email, one-time password (OTP), and set a new password if the OTP is valid and the reset request has not expired.
+ * If the reset is successful, the user is redirected to the login scene. </p>
+ * 
+ * @author Zeel Tejashkumar Shah
+ * 
+ * @version 1.0 2024-10-09 Initial implementation
+ */
+
 public class PasswordResetScene {
 	private Stage primaryStage;
     private AuthManager authManager;
 
+    /**
+     * Constructor for the PasswordResetScene class.
+     *
+     * @param primaryStage The primary stage where the scene will be displayed.
+     * @param authManager The authentication manager handling password reset operations.
+     */
     public PasswordResetScene(Stage primaryStage, AuthManager authManager) {
         this.authManager = authManager;
         this.primaryStage = primaryStage;
     }
 
+    /**
+     * Creates and returns the password reset scene.
+     * Users will input their email, OTP, and new password to reset their password.
+     *
+     * @return The password reset scene.
+     */
     public Scene createPasswordResetScene() {
         Label emailLabel = new Label("Enter your email:");
         TextField emailField = new TextField();
@@ -33,8 +57,8 @@ public class PasswordResetScene {
         
         Button backToLoginButton = new Button("Back to Login");
 
+        // Go back to the login scene
         backToLoginButton.setOnAction(e -> primaryStage.setScene(new StandardLoginScene(primaryStage, authManager).createLoginFields()));
-
 
         // Define the action when the "Submit" button is clicked
         submitButton.setOnAction(event -> {
